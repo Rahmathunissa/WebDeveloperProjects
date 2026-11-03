@@ -8,7 +8,6 @@ on:
     paths:
       - 'landing-pages/03-saas-react/**'
       - '.github/workflows/deploy-taskflow.yml'
-
   workflow_dispatch:
 
 permissions:
@@ -30,13 +29,14 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v4
-        with: node-version: 22
+        with:
+          node-version: 22
 
       - name: Install dependencies
         working-directory: landing-pages/03-saas-react
         run: npm ci
 
-      - name: Build project
+      - name: Build React project
         working-directory: landing-pages/03-saas-react
         run: npm run build
 
