@@ -29,8 +29,7 @@ jobs:
       - name: Check repository folders
         run: |
           pwd
-          ls -la
-          ls -la landing-pages/03-saas-react
+           find . -maxdepth 6 -name package.json -print
   
       - name: Setup Node
         uses: actions/setup-node@v4
