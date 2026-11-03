@@ -43,7 +43,7 @@ jobs:
       - name: Upload build
         uses: actions/upload-pages-artifact@v3
         with:
-          path: path: landing-pages/03-saas-react/dist
+          path: landing-pages/03-saas-react/dist
   deploy:
     environment:
       name: github-pages
