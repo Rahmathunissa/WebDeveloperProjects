@@ -6,8 +6,8 @@ on:
     branches:
       - main
     paths:
-      - "Landing Page lab/03-saas-react/**"
-      - ".github/workflows/deploy-taskflow.yml"
+      - 'Landing Page lab/03-saas-react/**'
+      - '.github/workflows/deploy-taskflow.yml'
   workflow_dispatch:
 
 permissions:
@@ -26,11 +26,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Check repository folders
-        run: |
-          pwd
-           find . -maxdepth 6 -name package.json -print
-  
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -40,26 +36,28 @@ jobs:
         working-directory: Landing Page lab/03-saas-react
         run: npm ci
 
-      - name: Build React project
+      - name: Build TaskFlow
         working-directory: Landing Page lab/03-saas-react
         run: npm run build
-      - name: Prepare complete website
+
+      - name: Prepare website
         run: |
           mkdir -p _site
           rsync -a --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='dist/' --exclude='_site/' ./ _site/
           mkdir -p "_site/Landing Page lab/03-saas-react"
           cp -R "Landing Page lab/03-saas-react/dist/." "_site/Landing Page lab/03-saas-react/"
-      - name: Upload build
+
+      - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: Landing Page lab/03-saas-react/dist
+          path: _site
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: Deploy to GitHub Pages
