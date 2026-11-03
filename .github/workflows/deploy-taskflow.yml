@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'WebDeveloperProjects/landing-pages/03-saas-react/**'
+      - 'landing-pages/03-saas-react/**'
       - '.github/workflows/deploy-taskflow.yml'
   workflow_dispatch:
 
@@ -33,18 +33,17 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        working-directory: WebDeveloperProjects/landing-pages/03-saas-react
+        working-directory: landing-pages/03-saas-react
         run: npm ci
 
       - name: Build React project
-        working-directory: WebDeveloperProjects/landing-pages/03-saas-react
+        working-directory: landing-pages/03-saas-react
         run: npm run build
 
       - name: Upload build
         uses: actions/upload-pages-artifact@v3
         with:
-          path: WebDeveloperProjects/landing-pages/03-saas-react/dist
-
+          path: path: landing-pages/03-saas-react/dist
   deploy:
     environment:
       name: github-pages
