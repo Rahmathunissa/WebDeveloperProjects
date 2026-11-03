@@ -4,5 +4,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/web-developer-portfolio/landing-pages/03-saas-react/"
+  base: "/WebDeveloperProjects/Landing Page lab/03-saas-react"
 });
