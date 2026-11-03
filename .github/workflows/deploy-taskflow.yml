@@ -26,7 +26,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      - name: Check repository folders
+        run: |
+          pwd
+          ls -la
+          ls -la landing-pages/03-saas-react
+  
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
