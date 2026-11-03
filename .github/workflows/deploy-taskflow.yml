@@ -43,7 +43,12 @@ jobs:
       - name: Build React project
         working-directory: Landing Page lab/03-saas-react
         run: npm run build
-
+      - name: Prepare complete website
+        run: |
+          mkdir -p _site
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='dist/' --exclude='_site/' ./ _site/
+          mkdir -p "_site/Landing Page lab/03-saas-react"
+          cp -R "Landing Page lab/03-saas-react/dist/." "_site/Landing Page lab/03-saas-react/"
       - name: Upload build
         uses: actions/upload-pages-artifact@v3
         with:
