@@ -2,16 +2,23 @@
 import os
 import sqlite3
 
-from flask import Flask, jsonify, request
+from dotenv import load_dotenv
+from flask import Flask, app, jsonify, request
 from flask_cors import CORS
-
+from flask import request, session, jsonify
+import hmac
 from config import Config
-
+load_dotenv()
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = os.getenv("SECRET_KEY")
     app.config.from_object(Config)
-
+    app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SECURE=False
+    )
     CORS(
         app,
         resources={
@@ -21,7 +28,8 @@ def create_app():
                     "http://localhost:5500"
                 ]
             }
-        }
+        },
+        supports_credentials=True
     )
 
     DATABASE = os.path.join(app.instance_path, "neuraflow.db")
@@ -43,6 +51,14 @@ def create_app():
 
     initialize_database()
 
+    def admin_required():
+        if not session.get("is_admin"):
+            return jsonify({
+                "success": False,
+                "message": "Admin login required."
+            }), 401
+
+        return None
     @app.route("/api/health", methods=["GET"])
     def health():
         return jsonify({
@@ -103,7 +119,11 @@ def create_app():
 
     # Retrieve enquiries
     @app.route("/api/enquiries", methods=["GET"])
+    
     def get_enquiries():
+        auth_error = admin_required()
+        if auth_error:
+            return auth_error
         try:
             with sqlite3.connect(DATABASE) as connection:
                 connection.row_factory = sqlite3.Row
@@ -126,7 +146,11 @@ def create_app():
             }), 500
     # Delete an enquiry
     @app.route("/api/enquiries/<int:enquiry_id>", methods=["DELETE"])
+
     def delete_enquiry(enquiry_id):
+        auth_error = admin_required()
+        if auth_error:
+            return auth_error
         try:
             with sqlite3.connect(DATABASE) as connection:
                 cursor = connection.execute(
@@ -150,9 +174,50 @@ def create_app():
                 "status": "error",
                 "message": "Unable to delete enquiry."
             }), 500
-    return app
+    #login route   
+    @app.route("/api/admin/login", methods=["POST"])
+    def admin_login():
+        data = request.get_json() or {}
+
+        password = data.get("password", "")
+        admin_password = os.getenv("ADMIN_PASSWORD", "")
+
+        if not admin_password:
+            return jsonify({
+                "success": False,
+                "message": "Admin password is not configured."
+            }), 500
+
+        if not hmac.compare_digest(password, admin_password):
+            return jsonify({
+                "success": False,
+                "message": "Incorrect password."
+            }), 401
+
+        session["is_admin"] = True
+
+        return jsonify({
+            "success": True,
+            "message": "Login successful."
+        })
+
+    # logout route*/
+    @app.route("/api/admin/logout", methods=["POST"])
+    def admin_logout():
+        session.clear()
+
+        return jsonify({
+            "success": True,
+            "message": "Logged out successfully."
+        })
 
 
+    @app.route("/api/admin/status", methods=["GET"])
+    def admin_status():
+        return jsonify({
+            "logged_in": session.get("is_admin", False)
+        })
+    return app          
 app = create_app()
 
 if __name__ == "__main__":
