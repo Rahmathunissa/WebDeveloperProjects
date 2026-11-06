@@ -133,7 +133,13 @@ def create_app():
             "strict-origin-when-cross-origin"
         )
         return response
-
+    @app.route("/", methods=["GET"])
+    def home():
+        return {
+            "application": "NeuraFlow AI",
+            "message": "Backend is running successfully!",
+            "status": "success"
+        }, 200
     @app.route("/api/health", methods=["GET"])
     def health():
         try:
