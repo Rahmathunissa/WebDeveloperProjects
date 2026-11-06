@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'Landing Page lab/03-saas-react/**'
+      - 'Landing Page lab/04-ai-startup-flask/frontend/**'
       - '.github/workflows/deploy-taskflow.yml'
   workflow_dispatch:
 
