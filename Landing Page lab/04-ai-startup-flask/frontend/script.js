@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("Sending request to Flask...");
 
                 const response = await fetch(
-                    "http://127.0.0.1:5000/api/enquiries",
+                    "https://neuraflow-backend.onrender.com/api/enquiries",
                     {
                         method: "POST",
                         headers: {
