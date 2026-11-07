@@ -338,7 +338,13 @@ def create_app():
         return jsonify({
             "logged_in": bool(session.get("is_admin"))
         }), 200
-
+    @app.route("/api/cors-check", methods=["GET"])
+    def cors_check():
+        return {
+            "allowed_origins": allowed_origins,
+            "message": "CORS diagnostic endpoint",
+            "status": "success"
+        }, 200
     return app
 
 
