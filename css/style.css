@@ -238,6 +238,22 @@ a {
     text-align: left;
 }
 
+/* Centre the fifth project in the gallery */
+
+.gallery-panel:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 16px);
+    justify-self: center;
+}
+
+/* Restore full width on mobile */
+@media (max-width: 700px) {
+    .gallery-panel:last-child {
+        grid-column: auto;
+        width: 100%;
+    }
+}
+
 /* ==========================================
    PROJECT 01 — CREATIVE AGENCY
    ========================================== */
@@ -2143,4 +2159,75 @@ footer p,
   .capability-symbol {
     transition: none;
   }
+}
+
+
+/* PROJECT 05 — LUMA */
+
+.panel-luma .luma-mockup {
+    background: #e9e6dc;
+    color: #263a30;
+    min-height: 100%;
+}
+
+.luma-content {
+    padding: 35px 25px;
+    position: relative;
+}
+
+.luma-content > span:first-child {
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.luma-content h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(25px, 3vw, 43px);
+    line-height: 1.15;
+    font-weight: 400;
+    margin: 25px 0;
+}
+
+.luma-products {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.luma-products div {
+    flex: 1;
+    aspect-ratio: 1;
+    background: #c5c9b8;
+    display: grid;
+    place-items: center;
+    font-family: Georgia, serif;
+    font-size: 25px;
+    transition: transform 0.3s ease;
+}
+
+.luma-products div:nth-child(2) {
+    background: #d5c8b5;
+}
+
+.luma-products div:nth-child(3) {
+    background: #b9b5a6;
+}
+
+.panel-luma:hover .luma-products div:nth-child(1) {
+    transform: translateY(-5px);
+}
+
+.panel-luma:hover .luma-products div:nth-child(2) {
+    transform: translateY(5px);
+}
+
+.panel-luma:hover .luma-products div:nth-child(3) {
+    transform: translateY(-5px);
+}
+
+.luma-footer {
+    display: block;
+    margin-top: 28px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
 }

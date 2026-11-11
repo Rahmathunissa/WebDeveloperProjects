@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover thoughtfully selected everyday essentials at LUMA.">
+    <title>LUMA | Everyday Essentials</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="announcement-bar">
+        Complimentary delivery on orders over AED 250
+    </div>
+
+    <header class="site-header">
+        <a href="#" class="logo">LUMA<span>.</span></a>
+
+        <nav class="main-nav">
+            <a href="#home">Home</a>
+            <a href="#products">Shop</a>
+            <a href="#about">Our Story</a>
+        </nav>
+
+        <button class="cart-button" id="cartButton">
+            Bag <span id="cartCount">0</span>
+        </button>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">THE EVERYDAY EDIT</p>
+                <h1>Simple things.<br><em>Better living.</em></h1>
+                <p>Thoughtfully selected essentials for a more beautiful everyday.</p>
+                <a href="#products" class="primary-button">Explore Collection ↗</a>
+            </div>
+
+            <div class="hero-art">
+                <div class="hero-circle"></div>
+                <div class="hero-label">LIVING<br>IN STYLE</div>
+            </div>
+        </section>
+
+        <section class="shop-section" id="products">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">CURATED FOR YOU</p>
+                    <h2>Our collection</h2>
+                </div>
+                <p class="product-total" id="productTotal">0 products</p>
+            </div>
+
+            <div class="shop-toolbar">
+                <div class="filter-buttons" id="filterButtons">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="home">Home</button>
+                    <button class="filter-btn" data-category="fashion">Fashion</button>
+                    <button class="filter-btn" data-category="accessories">Accessories</button>
+                </div>
+
+                <div class="shop-controls">
+                    <input type="search" id="searchInput" placeholder="Search products...">
+                    <select id="sortSelect" aria-label="Sort products">
+                        <option value="default">Featured</option>
+                        <option value="low">Price: Low to High</option>
+                        <option value="high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <section class="story-section" id="about">
+            <p class="eyebrow">THE LUMA PHILOSOPHY</p>
+            <h2>Less, but <em>better.</em></h2>
+            <p>We believe everyday essentials should be useful, beautiful and thoughtfully chosen.</p>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#" class="logo">LUMA<span>.</span></a>
+        <p>Everyday essentials. Thoughtfully selected.</p>
+        <p>© 2026 LUMA. Portfolio concept project.</p>
+    </footer>
+
+<!-- Shopping Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+        <h2>Your Shopping Bag</h2>
+        <button id="closeCart" class="close-cart" aria-label="Close cart">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+        <p class="empty-cart">Your bag is currently empty.</p>
+    </div>
+
+    <div class="cart-footer">
+        <div class="cart-subtotal">
+            <span>Subtotal</span>
+            <strong id="cartSubtotal">AED 0</strong>
+        </div>
+        <p>Shipping calculated at checkout.</p>
+        <button class="checkout-button" id="checkoutButton">
+            Continue to checkout
+        </button>
+        <button class="continue-shopping" id="continueShopping">
+            Continue shopping
+        </button>
+    </div>
+</aside>
+
+<!-- Checkout Modal -->
+<div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-modal">
+        <button class="checkout-close" id="closeCheckout">×</button>
+
+        <p class="eyebrow">LUMA CHECKOUT</p>
+        <h2>Complete your order</h2>
+
+        <form id="checkoutForm">
+            <label for="customerName">Full name</label>
+            <input type="text" id="customerName" required placeholder="Your name">
+
+            <label for="customerEmail">Email address</label>
+            <input type="email" id="customerEmail" required placeholder="you@example.com">
+
+            <label for="customerAddress">Delivery address</label>
+            <textarea id="customerAddress" required placeholder="Enter your delivery address"></textarea>
+
+            <div class="checkout-order">
+                <span>Order total</span>
+                <strong id="checkoutTotal">AED 0</strong>
+            </div>
+
+            <button type="submit" class="checkout-submit">
+                Place demo order
+            </button>
+        </form>
+
+        <p class="checkout-note">
+            Portfolio demonstration only. No real payment will be processed.
+        </p>
+    </div>
+</div>
+
+<!-- Product Quick View Modal -->
+<div class="quick-view-overlay" id="quickViewOverlay">
+    <div class="quick-view-modal">
+        <button class="quick-view-close" id="closeQuickView">×</button>
+
+        <div class="quick-view-content" id="quickViewContent">
+        </div>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
